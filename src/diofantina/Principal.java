@@ -1,11 +1,12 @@
 package diofantina;
 
+import interG.Quadro;
+
 public class Principal {
 
 	public static void main(String[] args) {
-		Euclides euclides = new Euclides();
-		int mdc = euclides.calculoMdc(16, 24);
-		System.out.println(mdc);
+		Quadro qd = new Quadro();
+		qd.setVisible(true);
 	}
 
 }
