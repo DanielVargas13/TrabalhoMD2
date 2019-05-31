@@ -110,13 +110,13 @@ public class Quadro extends JFrame {
 				}
 			}
 		});
-		btnResolver.setBounds(106, 51, 89, 23);
+		btnResolver.setBounds(59, 51, 89, 23);
 		contentPane.add(btnResolver);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 96, 414, 154);
 		contentPane.add(scrollPane);
-		
+
 		textArea = new JTextArea();
 		textArea.setWrapStyleWord(true);
 		scrollPane.setViewportView(textArea);
@@ -130,7 +130,55 @@ public class Quadro extends JFrame {
 				textArea.setText("");
 			}
 		});
-		btnLimpar.setBounds(216, 51, 89, 23);
+		btnLimpar.setBounds(174, 51, 89, 23);
 		contentPane.add(btnLimpar);
+
+		JButton btnPositivas = new JButton("Positivas");
+		btnPositivas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textArea.setText("");
+				euclides = new Euclides();
+				solucoes = new LinkedHashMap<Integer, Integer>();
+				int a = 0, b = 0, c = 0;
+
+				try {
+					a = Integer.parseInt(textField.getText());
+				} catch (NumberFormatException ex) {
+					textArea.append("O campo a não possui um valor válido");
+					return;
+				}
+
+				try {
+					b = Integer.parseInt(textField_1.getText());
+				} catch (NumberFormatException ex) {
+					textArea.append("O campo b não possui um valor válido");
+					return;
+				}
+
+				try {
+					c = Integer.parseInt(textField_2.getText());
+				} catch (NumberFormatException ex) {
+					textArea.append("O campo c não possui um valor válido");
+					return;
+				}
+
+				textArea.setText("\nEquação: " + a + "x" + " + " + b + "y" + " = " + c);
+				p = euclides.reversao(a, b, c);
+				if (p == null) {
+					textArea.append("\n\nEssa equação diofantina não possui solução");
+				} else {
+					textArea.append("\n\nSoluções:\n");
+					solucoes = euclides.calcularSolucoes(p);
+					for (int x : solucoes.keySet()) {
+						int y = solucoes.get(x);
+						if (x > 0 && y > 0) {
+							textArea.append("\nx = " + x + " , " + "y = " + y);
+						}
+					}
+				}
+			}
+		});
+		btnPositivas.setBounds(281, 51, 89, 23);
+		contentPane.add(btnPositivas);
 	}
 }
