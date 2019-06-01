@@ -41,9 +41,12 @@ public class Euclides {
 
 	public Parcial reversao(int a, int b, int c) {
 		calculoMdc(a, b);
-		int tam = partes.size() - 2;
+		int tam = 0;
+		if (partes.size() > 2) {
+			tam = partes.size() - 2;
+		}
 		Parcial inicial = partes.get(tam);
-		if (c % inicial.getR() == 0) {
+		if (inicial.getR() != 0 && (c % inicial.getR() == 0)) {
 
 			Parcial atual = null;
 			for (int i = tam - 1; i >= 0; i--) {
