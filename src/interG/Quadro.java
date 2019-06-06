@@ -97,16 +97,13 @@ public class Quadro extends JFrame {
 				}
 
 				textArea.setText("\nEquação: " + a + "x" + " + " + b + "y" + " = " + c);
-				p = euclides.reversao(a, b, c);
+				p = euclides.aplicarEuclides(a, b, c);
 				if (p == null) {
-					textArea.append("\n\nEssa equação diofantina não possui solução");
+					textArea.append("\n\nEssa equação diofantina não possui soluções inteiras");
 				} else {
 					textArea.append("\n\nSoluções:\n");
-					solucoes = euclides.calcularSolucoes(p);
-					for (int x : solucoes.keySet()) {
-						int y = solucoes.get(x);
-						textArea.append("\nx = " + x + " , " + "y = " + y);
-					}
+					textArea.append("\nx = " + p.getX() + " + (" + p.getB() + "/" + p.getR() + ") * t" + " , " + "y = "
+							+ p.getY() + " - (" + p.getA() + "/" + p.getR() + ") * t");
 				}
 			}
 		});
@@ -163,16 +160,20 @@ public class Quadro extends JFrame {
 				}
 
 				textArea.setText("\nEquação: " + a + "x" + " + " + b + "y" + " = " + c);
-				p = euclides.reversao(a, b, c);
+				p = euclides.aplicarEuclides(a, b, c);
 				if (p == null) {
-					textArea.append("\n\nEssa equação diofantina não possui solução");
+					textArea.append("\n\nEssa equação diofantina não possui soluções inteiras");
 				} else {
 					textArea.append("\n\nSoluções:\n");
-					solucoes = euclides.calcularSolucoes(p);
-					for (int x : solucoes.keySet()) {
-						int y = solucoes.get(x);
-						if (x > 0 && y > 0) {
-							textArea.append("\nx = " + x + " , " + "y = " + y);
+					solucoes = euclides.obterSolucoes(p);
+					if (solucoes.size() == 0) {
+						textArea.append("\n\nEssa equação diofantina não possui soluções inteiras e positivas");
+					} else {
+						for (int x : solucoes.keySet()) {
+							int y = solucoes.get(x);
+							if (x > 0 && y > 0) {
+								textArea.append("\nx = " + x + " , " + "y = " + y);
+							}
 						}
 					}
 				}

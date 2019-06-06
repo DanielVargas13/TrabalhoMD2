@@ -13,34 +13,29 @@ public class Euclides {
 
 	}
 
-	public void calculoMdc(int a, int b) {
-
-		int q, r, aux = 0;
+	public Parcial aplicarEuclides(int a, int b, int c) {
+		int a1 = a, b1 = b, q = 0, r = 0, aux = 0;
 		Parcial p;
 
-		if (b > a) {
-			aux = a;
-			a = b;
-			b = aux;
+		if (b1 > a1) {
+			aux = a1;
+			a1 = b1;
+			b1 = aux;
 		}
 		do {
 			p = new Parcial();
-			q = a / b;
-			r = a % b;
+			q = a1 / b1;
+			r = a1 % b1;
 			p.setR(r);
-			p.setA(a);
-			p.setB(b);
+			p.setA(a1);
+			p.setB(b1);
 			p.setX(1);
 			p.setY(-q);
 			partes.add(p);
-			a = b;
-			b = r;
+			a1 = b1;
+			b1 = r;
 		} while (r != 0);
 
-	}
-
-	public Parcial reversao(int a, int b, int c) {
-		calculoMdc(a, b);
 		int tam = 0;
 		if (partes.size() > 2) {
 			tam = partes.size() - 2;
@@ -62,7 +57,7 @@ public class Euclides {
 
 				inicial.setA(b);
 				inicial.setB(a);
-				int aux = inicial.getX();
+				aux = inicial.getX();
 				inicial.setX(inicial.getY());
 				inicial.setY(aux);
 
@@ -76,22 +71,19 @@ public class Euclides {
 		return inicial;
 	}
 
-	public LinkedHashMap<Integer, Integer> calcularSolucoes(Parcial inicial) {
+	public LinkedHashMap<Integer, Integer> obterSolucoes(Parcial inicial) {
 		double t1, t2;
-		int rt1, rt2;
+		int rt1;
 		int x;
 		int y;
 		LinkedHashMap<Integer, Integer> solucoes = new LinkedHashMap<Integer, Integer>();
-		t1 = -inicial.getX() / (inicial.getB() / inicial.getR());
+		t1 = (double) -inicial.getX() / (double) (inicial.getB() / inicial.getR());
 		rt1 = -inicial.getX() % (inicial.getB() / inicial.getR());
-		t2 = inicial.getY() / (inicial.getA() / inicial.getR());
-		rt2 = inicial.getY() % (inicial.getA() / inicial.getR());
+		t2 = (double) inicial.getY() / (double) (inicial.getA() / inicial.getR());
 		if (rt1 == 0) {
 			t1++;
 		}
-		if (rt2 != 0) {
-			t2++;
-		}
+
 		for (int i = (int) t1; i < t2; i++) {
 			x = inicial.getX() + (inicial.getB() / inicial.getR()) * i;
 			y = inicial.getY() - (inicial.getA() / inicial.getR()) * i;
